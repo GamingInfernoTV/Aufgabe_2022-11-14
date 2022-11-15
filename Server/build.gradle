@@ -1,0 +1,11 @@
+plugins {
+    id 'application'
+}
+
+application {
+    mainClass = "de.medieninformatik.server.Main"
+}
+
+dependencies {
+    implementation project(":Common")
+}

@@ -1,0 +1,23 @@
+allprojects {
+    apply plugin: 'java'
+
+    group 'de.medieninformatik'
+    version '1.0-SNAPSHOT'
+
+    ext {
+        jUnitVersion = '5.9.1'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+        testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
