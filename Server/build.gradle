@@ -3,7 +3,7 @@ plugins {
 }
 
 application {
-    mainClass = "de.medieninformatik.server.Main"
+    mainClass = "de.medieninformatik.server.Server"
 }
 
 dependencies {
