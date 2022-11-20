@@ -37,4 +37,20 @@ public interface Reservations extends Remote {
      * @throws RemoteException Wenn bei der {@link Remote}-Verbindung ein Fehler auftritt
      */
     void makeReservation(Seat seat, String name) throws RemoteException;
+
+    /**
+     * Gibt die Anzahl an Sitz-Reihen zurück
+     *
+     * @return Die Anzahl an Sitz-Reihen
+     * @throws RemoteException Wenn bei der {@link Remote}-Verbindung ein Fehler auftritt
+     */
+    int getNumberOfSeatRows() throws RemoteException;
+
+    /**
+     * Gibt die Anzahl an Sitze per Reihe zurück
+     *
+     * @return Die Anzahl an Sitze per Reihe
+     * @throws RemoteException Wenn bei der {@link Remote}-Verbindung ein Fehler auftritt
+     */
+    int getNumbersOfSeatsPerRow() throws RemoteException;
 }
