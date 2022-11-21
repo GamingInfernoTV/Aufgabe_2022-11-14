@@ -3,8 +3,6 @@ package de.medieninformatik.client;
 import de.medieninformatik.common.Reservations;
 import de.medieninformatik.common.Seat;
 import javafx.application.Platform;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
@@ -27,34 +25,23 @@ import java.util.HashMap;
 public class ReservationsController {
     private final Reservations reservations;
     private final HashMap<Button, Seat> buttonSeatMap = new HashMap<>();
+
     /**
-     * Ein {@link Service}-Objekt, welches die Reservierung aller Sitze überwacht
-     * und die Darstellung der Buttons entsprechend anpasst
+     * Prüft, ob der {@link Seat Sitz}, welche mit dem {@link Button} verlinkt ist, reserviert ist,
+     * und ändert die Hintergrundfarbe des Buttons entsprechend
+     *
+     * @param button Der Button des Hintergrundfarbe entsprechend der Reservierung aktualisiert werden soll
      */
-    private final Service<Void> buttonUpdater = new Service<>() {
-        @Override
-        protected Task<Void> createTask() {
-            return new Task<>() {
-                @Override
-                protected Void call() {
-                    final var buttons = buttonSeatMap.keySet();
-                    while (true) {
-                        for (Button button : buttons) {
-                            try {
-                                button.setStyle("-fx-background-color: " +
-                                        (reservations.hasReservation(buttonSeatMap.get(button))
-                                                ? "orangered"
-                                                : "aquamarine"));
-                            } catch (RemoteException e) {
-                                e.printStackTrace();
-                                return null;
-                            }
-                        }
-                    }
-                }
-            };
+    private void updateButtonStyle(Button button) {
+        try {
+            button.setStyle("-fx-background-color: " +
+                    (reservations.hasReservation(buttonSeatMap.get(button))
+                            ? "orangered"
+                            : "aquamarine"));
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
-    };
+    }
 
     @FXML
     public GridPane gridPane;
@@ -96,10 +83,9 @@ public class ReservationsController {
                 button.setCursor(Cursor.HAND);
                 gridPane.add(button, j, i);
                 buttonSeatMap.put(button, seat);
+                updateButtonStyle(button);
             }
         }
-
-        buttonUpdater.start();
     }
 
     /**
@@ -144,5 +130,7 @@ public class ReservationsController {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+
+        updateButtonStyle(button);
     }
 }
