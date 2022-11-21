@@ -11,6 +11,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
+import javafx.scene.text.Text;
 
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
@@ -21,10 +25,14 @@ import java.util.HashMap;
  * Controller-Klasse für {@link ReservationsApplication}
  *
  * @author Malte Kasolowsky <code>m30114</code>
+ * @author Aaron Pöhlmann <code>m30115</code>
  */
 public class ReservationsController {
     private final Reservations reservations;
     private final HashMap<Button, Seat> buttonSeatMap = new HashMap<>();
+    public Polygon polygon;
+    public StackPane stackPane; //Stack, welcher das Polygon und den Text der Bühne beinhaltet
+    public Text buehne;
 
     /**
      * Prüft, ob der {@link Seat Sitz}, welche mit dem {@link Button} verlinkt ist, reserviert ist,
@@ -60,6 +68,8 @@ public class ReservationsController {
      * durch welche die {@link Seat Sitze} des Theaters reserviert werden können
      */
     public void init() {
+        buehne.fillProperty().set(Color.WHITE);
+        buehne.setStyle("-fx-font: 30px arial");
         final int gap = 10;
         final int seatRows;
         final int seatsPerRow;
