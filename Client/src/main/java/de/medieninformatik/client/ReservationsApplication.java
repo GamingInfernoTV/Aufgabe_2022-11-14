@@ -12,7 +12,6 @@ import java.io.IOException;
  * zum Reservieren von Sitzen in einem Theater
  *
  * @author Malte Kasolowsky <code>m30114</code>
- * @author Aaron Pöhlmann <code>m30115</code>
  */
 public class ReservationsApplication extends Application {
 
@@ -41,6 +40,7 @@ public class ReservationsApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Theater Reservation");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 }

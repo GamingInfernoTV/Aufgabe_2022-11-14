@@ -5,6 +5,7 @@ import de.medieninformatik.common.Seat;
 
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
@@ -29,11 +30,33 @@ public class ReservationsClient implements Reservations {
     }
 
     /**
+     * Gibt die Anzahl an Sitz-Reihen zurück
+     *
+     * @return Die Anzahl an Sitz-Reihen
+     * @throws RemoteException Wenn bei der {@link Remote}-Verbindung ein Fehler auftritt
+     */
+    @Override
+    public int getNumberOfSeatRows() throws RemoteException {
+        return reservations.getNumberOfSeatRows();
+    }
+
+    /**
+     * Gibt die Anzahl an Sitze per Reihe zurück
+     *
+     * @return Die Anzahl an Sitze per Reihe
+     * @throws RemoteException Wenn bei der {@link Remote}-Verbindung ein Fehler auftritt
+     */
+    @Override
+    public int getNumbersOfSeatsPerRow() throws RemoteException {
+        return reservations.getNumbersOfSeatsPerRow();
+    }
+
+    /**
      * Überprüft, ob ein ausgewählter {@link Seat} schon reserviert wurde
      *
      * @param seat Der zu prüfende Sitz
      * @return true, wenn der Sitz schon reserviert wurde, sonst false
-     * @throws RemoteException Wenn bei der {@link java.rmi.Remote}-Verbindung ein Fehler auftritt
+     * @throws RemoteException Wenn bei der {@link Remote}-Verbindung ein Fehler auftritt
      */
     @Override
     public boolean hasReservation(Seat seat) throws RemoteException {
@@ -45,7 +68,7 @@ public class ReservationsClient implements Reservations {
      *
      * @param seat Der Sitz, dessen Reservierung betrachtet werden soll
      * @return Der Name, auf welchem der Sitz reserviert wurde
-     * @throws RemoteException Wenn bei der {@link java.rmi.Remote}-Verbindung ein Fehler auftritt
+     * @throws RemoteException Wenn bei der {@link Remote}-Verbindung ein Fehler auftritt
      */
     @Override
     public String getReservation(Seat seat) throws RemoteException {
@@ -57,7 +80,7 @@ public class ReservationsClient implements Reservations {
      *
      * @param seat Der Sitz, welcher reserviert werden soll
      * @param name Der Name, auf welchen der Sitz reserviert werden soll
-     * @throws RemoteException Wenn bei der {@link java.rmi.Remote}-Verbindung ein Fehler auftritt
+     * @throws RemoteException Wenn bei der {@link Remote}-Verbindung ein Fehler auftritt
      */
     @Override
     public void makeReservation(Seat seat, String name) throws RemoteException {
