@@ -36,19 +36,26 @@ public class ReservationsController {
         reservations = new ReservationsClient();
         Platform.runLater(this::init);
     }
-
-    /**
-     * // TODO: 15.11.2022
-     */
     private void init() {
         for (int i = 0; i < grid.getRowCount(); i++) {
-            for (int j = 0; j < grid.getColumnCount(); j++) {
+            for (int j = 0; j < grid.getColumnCount() -4; j++) {
                 Seat seat = new Seat(i, j);
+
                 Rectangle rect = new Rectangle(
-                        grid.getWidth() / grid.getRowCount() - 10,
-                        grid.getHeight() / grid.getColumnCount() - 10);
+                        grid.getWidth() / grid.getRowCount() - 20,
+                        grid.getHeight() / grid.getColumnCount() - 20);
                 rect.fillProperty().set(Color.BLUE);
-                rect.setOnMouseClicked(mouseEvent -> reservationPrompt(seat));
+                try {
+                    if (reservations.hasReservation(seat)) {
+                        rect.fillProperty().set(Color.GRAY);
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+                rect.setArcHeight(10.0);
+                rect.setArcWidth(10.0);
+                rect.setOnMouseClicked(mouseEvent -> reservationPrompt(seat, rect));
+
                 grid.add(rect, i, j);
             }
         }
@@ -61,7 +68,8 @@ public class ReservationsController {
      *
      * @param seat Der Sitz, der reserviert werden soll
      */
-    private void reservationPrompt(Seat seat) {
+    private void reservationPrompt(Seat seat, Rectangle rect) {
+        rect.fillProperty().set(Color.GRAY);
         final String dialogTitle = "Reservation";
         try {
             if (reservations.hasReservation(seat)) {
@@ -84,6 +92,7 @@ public class ReservationsController {
                                 "No name was entered!\nNo reservation has been made.",
                                 ButtonType.OK);
                         alert.setTitle(dialogTitle);
+                        rect.fillProperty().set(Color.BLUE);
                         alert.setHeaderText("Invalid input");
                         alert.showAndWait();
                     } else reservations.makeReservation(seat, input.get());

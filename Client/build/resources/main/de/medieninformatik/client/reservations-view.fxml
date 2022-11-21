@@ -6,7 +6,7 @@
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0"
       prefWidth="520.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="de.medieninformatik.client.ReservationsController">
-    <GridPane fx:id="grid" alignment="CENTER" minHeight="500.0" prefHeight="500.0" prefWidth="500.0" maxHeight="-Infinity" maxWidth="-Infinity">
+    <GridPane fx:id="grid" gridLinesVisible="true" alignment="CENTER" minHeight="500.0" prefHeight="500.0" prefWidth="500.0" maxHeight="-Infinity" maxWidth="-Infinity">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="50.0"/>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="50.0"/>
